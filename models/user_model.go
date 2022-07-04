@@ -10,9 +10,4 @@ type User struct {
 	Email             string             `json:"email" validate:"required,email,unique"`
 	Password          string             `json:"password" validate:"required"`
 	ProfilePictureURL string             `json:"profile_picture_url,omitempty" validate:"url"`
-	Restraunts        []Restraunt
-}
-
-type Restraunt struct {
-	Id primitive.ObjectID `json:"id,omitempty" validate:"unique"`
 }
