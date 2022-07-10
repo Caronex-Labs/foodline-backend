@@ -1,6 +1,7 @@
-package configs
+package database
 
 import (
+	"FoodLine/src/utils"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -9,8 +10,8 @@ import (
 	"time"
 )
 
-func ConnectDB() *mongo.Client {
-	client, err := mongo.NewClient(options.Client().ApplyURI(EnvMongoURI()))
+func NewMongoClient(config *utils.Config) *mongo.Client {
+	client, err := mongo.NewClient(options.Client().ApplyURI(config.MongoURI))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -21,6 +22,8 @@ func ConnectDB() *mongo.Client {
 		log.Fatal(err)
 	}
 
+	client.Database(config.MongoDBName)
+
 	//ping the database
 	err = client.Ping(ctx, nil)
 	if err != nil {
@@ -28,13 +31,4 @@ func ConnectDB() *mongo.Client {
 	}
 	fmt.Println("Connected to MongoDB")
 	return client
-}
-
-//Client instance
-var DB *mongo.Client = ConnectDB()
-
-//getting database collections
-func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-	collection := client.Database("golangAPI").Collection(collectionName)
-	return collection
 }

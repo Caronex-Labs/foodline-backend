@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"FoodLine/configs"
-	"FoodLine/models"
-	"FoodLine/responses"
+	"FoodLine/src/configs"
+	"FoodLine/src/internal/models"
+	"FoodLine/src/responses"
 	"context"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
